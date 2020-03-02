@@ -75,18 +75,18 @@ def readData(path):
 				else:
 					pos_tru_dev.append(readtext(path_to_txt))
 	# print(neg_dec_train)
-	for n_pos_neg in range(500,1001,50):
-		W_pos_neg,b_pos_neg,feat_map_pos_neg = pos_neg_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_pos_neg,average=True)
+	# for n_pos_neg in range(500,1001,50):
+	# 	W_pos_neg,b_pos_neg,feat_map_pos_neg = pos_neg_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_pos_neg,average=True)
 		# W_tru_dec,b_tru_dec,feat_map_tru_dec = tru_dec_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_tru_dec)
 #### pos_neg validation error #####
-		neg_dev =  neg_dec_dev+neg_tru_dev
-		pos_dev =  pos_dec_dev+pos_tru_dev
-		neg_dev_cleaned = list(map(mapper,neg_dev))
-		pos_dev_cleaned = list(map(mapper,pos_dev))
-		data_feature = buildFeature(feat_map_pos_neg,pos_dev_cleaned,neg_dev_cleaned,1,-1)
-		error_pos_neg = prediction(data_feature,W_pos_neg,b_pos_neg)
-		print(error_pos_neg)
-		print("featrue number: "+str(n_pos_neg))
+		# neg_dev =  neg_dec_dev+neg_tru_dev
+		# pos_dev =  pos_dec_dev+pos_tru_dev
+		# neg_dev_cleaned = list(map(mapper,neg_dev))
+		# pos_dev_cleaned = list(map(mapper,pos_dev))
+		# data_feature = buildFeature(feat_map_pos_neg,pos_dev_cleaned,neg_dev_cleaned,1,-1)
+		# error_pos_neg = prediction(data_feature,W_pos_neg,b_pos_neg)
+		# print(error_pos_neg)
+		# print("featrue number: "+str(n_pos_neg))
 #### tru_dec validation error #####
 	# for n_tru_dec in range(500,1001,50):
 	# 	W_tru_dec,b_tru_dec,feat_map_tru_dec = tru_dec_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_tru_dec,average=True)
@@ -100,30 +100,30 @@ def readData(path):
 	# 	print("featrue number: "+str(n_tru_dec))
 #### testing and write it to a file ##### 
 	
-	# n_pos_neg = 800
-	# n_tru_dec = 1000
-	# #### vanilla ####
-	# Map = {}
-	# W_pos_neg,b_pos_neg,feat_map_pos_neg = pos_neg_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_pos_neg,average=False)
-	# W_tru_dec,b_tru_dec,feat_map_tru_dec = tru_dec_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_tru_dec,average=False)
-	# Map["W_pos_neg"] = W_pos_neg
-	# Map["b_pos_neg"] = b_pos_neg
-	# Map["feat_map_pos_neg"] = feat_map_pos_neg
-	# Map["W_tru_dec"] = W_tru_dec
-	# Map["b_tru_dec"] = b_tru_dec
-	# Map["feat_map_tru_dec"] = feat_map_tru_dec
-	# writeFile("vanillamodel.txt",Map)
-	#### average ####
-	# Map = {}
-	# W_pos_neg,b_pos_neg,feat_map_pos_neg = pos_neg_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_pos_neg,average=True)
-	# W_tru_dec,b_tru_dec,feat_map_tru_dec = tru_dec_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_tru_dec,average=True)
-	# Map["W_pos_neg"] = W_pos_neg
-	# Map["b_pos_neg"] = b_pos_neg
-	# Map["feat_map_pos_neg"] = feat_map_pos_neg
-	# Map["W_tru_dec"] = W_tru_dec
-	# Map["b_tru_dec"] = b_tru_dec
-	# Map["feat_map_tru_dec"] = feat_map_tru_dec
-	# writeFile("averagedmodel.txt",Map)
+	n_pos_neg = 800
+	n_tru_dec = 1000
+	#### vanilla ####
+	Map = {}
+	W_pos_neg,b_pos_neg,feat_map_pos_neg = pos_neg_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_pos_neg,average=False)
+	W_tru_dec,b_tru_dec,feat_map_tru_dec = tru_dec_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_tru_dec,average=False)
+	Map["W_pos_neg"] = W_pos_neg
+	Map["b_pos_neg"] = b_pos_neg
+	Map["feat_map_pos_neg"] = feat_map_pos_neg
+	Map["W_tru_dec"] = W_tru_dec
+	Map["b_tru_dec"] = b_tru_dec
+	Map["feat_map_tru_dec"] = feat_map_tru_dec
+	writeFile("vanillamodel.txt",Map)
+	### average ####
+	Map = {}
+	W_pos_neg,b_pos_neg,feat_map_pos_neg = pos_neg_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_pos_neg,average=True)
+	W_tru_dec,b_tru_dec,feat_map_tru_dec = tru_dec_classification(neg_dec_train,neg_tru_train,pos_dec_train,pos_tru_train,n_tru_dec,average=True)
+	Map["W_pos_neg"] = W_pos_neg
+	Map["b_pos_neg"] = b_pos_neg
+	Map["feat_map_pos_neg"] = feat_map_pos_neg
+	Map["W_tru_dec"] = W_tru_dec
+	Map["b_tru_dec"] = b_tru_dec
+	Map["feat_map_tru_dec"] = feat_map_tru_dec
+	writeFile("averagedmodel.txt",Map)
 
 def pos_neg_classification(neg_dec,neg_tru,pos_dec,pos_tru,n,average = False):
 	neg =  neg_dec+neg_tru
